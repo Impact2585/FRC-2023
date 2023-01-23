@@ -30,12 +30,33 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    m_driveTrain.setDefaultCommand(
-        new RunCommand(
-            () ->
+    switch (driveSetup.getDrive())
+    {
+      case "Tank":
+        m_driveTrain.setDefaultCommand(
+          new RunCommand(
+              () ->
                 m_driveTrain.tankDrive(
-                    m_driverController.getLeftY(), m_driverController.getRightY()),
-            m_driveTrain));
+                  m_driverController.getLeftY(), m_driverController.getRightY()),
+              m_driveTrain));
+        break;
+      case "Arcade":
+        m_driveTrain.setDefaultCommand(
+          new RunCommand(
+              () ->
+                m_driveTrain.arcadeDrive(
+                  m_driverController.getLeftY(), m_driverController.getRightX()),
+              m_driveTrain));
+        break;
+      case "Curvature":
+        m_driveTrain.setDefaultCommand(
+          new RunCommand(
+              () ->
+                m_driveTrain.curvatureDrive(
+                  m_driverController.getLeftY(), m_driverController.getLeftX()),
+              m_driveTrain));
+    }
+    
   }
 
   private void configureBindings() {

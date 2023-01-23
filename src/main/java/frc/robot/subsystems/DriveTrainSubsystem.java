@@ -28,7 +28,17 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftSpeed, double rightSpeed)
   {
-    m_drive.tankDrive(leftSpeed, rightSpeed);
+    m_drive.tankDrive(leftSpeed, rightSpeed, true);
+  }
+
+  public void arcadeDrive(double speed, double rot)
+  {
+    m_drive.arcadeDrive(speed, rot, true);
+  }
+
+  public void curvatureDrive(double speed, double rot)
+  {
+    m_drive.curvatureDrive(speed, rot, false);
   }
 
   @Override
