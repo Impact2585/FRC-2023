@@ -1,3 +1,8 @@
+
+
+
+
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -19,9 +24,9 @@ public final class Constants {
   }
   public static class DriveConstants
   {
-    public static final int kLeftMotor1Port = 0;
-    public static final int kLeftMotor2Port = 0;
-    public static final int kRightMotor1Port = 0;
-    public static final int kRightMotor2Port = 0;
+    public static final int kLeftMotor1Port = 5;
+    public static final int kLeftMotor2Port = 4;
+    public static final int kRightMotor1Port = 1;
+    public static final int kRightMotor2Port = 3;
   }
 }

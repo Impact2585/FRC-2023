@@ -30,32 +30,32 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    switch (driveSetup.getDrive())
-    {
-      case "Tank":
-        m_driveTrain.setDefaultCommand(
-          new RunCommand(
-              () ->
-                m_driveTrain.tankDrive(
-                  m_driverController.getLeftY(), m_driverController.getRightY()),
-              m_driveTrain));
-        break;
-      case "Arcade":
+    // switch (driveSetup.getDrive())
+    // {
+    //   case "Tank":
+        // m_driveTrain.setDefaultCommand(
+        //   new RunCommand(
+        //       () ->
+        //         m_driveTrain.tankDrive(
+        //           -m_driverController.getLeftY(), m_driverController.getRightY()),
+        //       m_driveTrain));
+      //   break;
+      // case "Arcade":
         m_driveTrain.setDefaultCommand(
           new RunCommand(
               () ->
                 m_driveTrain.arcadeDrive(
-                  m_driverController.getLeftY(), m_driverController.getRightX()),
+                  m_driverController.getRightX(), m_driverController.getLeftY()),
               m_driveTrain));
-        break;
-      case "Curvature":
-        m_driveTrain.setDefaultCommand(
-          new RunCommand(
-              () ->
-                m_driveTrain.curvatureDrive(
-                  m_driverController.getLeftY(), m_driverController.getLeftX()),
-              m_driveTrain));
-    }
+      //   break;
+      // case "Curvature":++
+        // m_driveTrain.setDefaultCommand(
+        //   new RunCommand(
+        //       () ->
+        //         m_driveTrain.curvatureDrive(
+        //           m_driverController.getRightX(), m_driverController.getLeftY()),
+        //       m_driveTrain));
+    
     
   }
 
@@ -63,7 +63,7 @@ public class RobotContainer {
     // // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // new Trigger(m_exampleSubsystem::exampleCondition)
     //     .onTrue(new ExampleCommand(m_exampleSubsystem));
-
+                                                                                  
     // // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // // cancelling on release.
     // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
