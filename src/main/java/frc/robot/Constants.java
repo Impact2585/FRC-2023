@@ -28,5 +28,13 @@ public final class Constants {
     public static final int kLeftMotor2Port = 4;
     public static final int kRightMotor1Port = 1;
     public static final int kRightMotor2Port = 3;
+
+    public static final double kmotorSpeed = 0.2;
+  }
+
+  public static class VisionConstants
+  {
+    public static final int kConePipeline = 0;
+    public static final int kCubePipeline = 0;
   }
 }
