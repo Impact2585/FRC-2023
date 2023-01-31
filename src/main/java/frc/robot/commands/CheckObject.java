@@ -5,27 +5,18 @@
 package frc.robot.commands;
 
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.Limelight;
 
-public class AimAssist extends CommandBase {
+public class CheckObject extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final DriveTrainSubsystem m_drive;
   private final Limelight m_light;
-  private double Kp = -0.1;
-  private double min_command = 0.05;
-  private int objectTracking;
-  private DoubleSupplier m_forward;
 
-  public AimAssist(DriveTrainSubsystem drive, Limelight lm, int tracked, DoubleSupplier forward) {
-    m_drive = drive;
+  private int objectTracking;
+
+  public CheckObject(Limelight lm, int tracked) {
     m_light = lm;
     objectTracking = tracked;
-    m_forward = forward;
-    addRequirements(drive);
     addRequirements(lm);
   }
 
@@ -42,23 +33,16 @@ public class AimAssist extends CommandBase {
   {
     if (m_light.hasTarget())
     {
-        double heading_error = -m_light.getYaw();
-        double steering_adjust = 0.0;
-        if (m_light.getYaw() > 1.0)
-        {
-                steering_adjust = Kp*heading_error - min_command;
-        }
-        else if (m_light.getYaw() < 1.0)
-        {
-                steering_adjust = Kp*heading_error + min_command;
-        }
-        m_drive.arcadeDrive(m_forward.getAsDouble(), steering_adjust);
+        System.out.println("test");
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) 
+  {
+
+  }
 
   // Returns true when the command should end.
   @Override

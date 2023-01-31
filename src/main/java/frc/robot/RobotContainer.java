@@ -6,7 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AimAssist;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoTrackObject;
+import frc.robot.commands.CheckObject;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,12 +30,7 @@ public class RobotContainer {
     configureBindings();
 
 
-    m_driveTrain.setDefaultCommand(
-      new RunCommand(
-          () ->
-            m_driveTrain.setDrive(
-              m_driverController.getLeftX(), m_driverController.getLeftY(), m_driverController.getRightY()),
-          m_driveTrain));
+    m_driveTrain.setDefaultCommand(new ArcadeDrive(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
 
 
     
@@ -43,8 +40,10 @@ public class RobotContainer {
 
     m_driverController.rightBumper().whileTrue(new AutoTrackObject(m_driveTrain, m_light, 0));
     m_driverController.leftBumper().whileTrue(new AutoTrackObject(m_driveTrain, m_light, 1));
-    m_driverController.a().whileTrue(new AimAssist(m_driveTrain, m_light, 0));
-    m_driverController.b().whileTrue(new AimAssist(m_driveTrain, m_light, 1));
+    m_driverController.a().whileTrue(new AimAssist(m_driveTrain, m_light, 0, () -> m_driverController.getLeftY()));
+    m_driverController.b().whileTrue(new AimAssist(m_driveTrain, m_light, 1, () -> m_driverController.getLeftY()));
+    m_driverController.y().whileTrue(new CheckObject(m_light, 0));
+
   }
 
   /**

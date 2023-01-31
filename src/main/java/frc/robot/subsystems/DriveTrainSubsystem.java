@@ -49,39 +49,20 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_drive.curvatureDrive(speed, rot, false);
   }
   
-  public void swingTurnLeft()
-  {
-    m_leftMotors.set(0);
-    m_rightMotors.set(DriveConstants.kmotorSpeed);
-  }
-
-  public void swingTurnRight()
-  {
-    m_leftMotors.set(DriveConstants.kmotorSpeed);
-    m_rightMotors.set(0);
-  }
-
-  public void pointTurnLeft()
-  {
-    m_leftMotors.set(-DriveConstants.kmotorSpeed);
-    m_rightMotors.set(DriveConstants.kmotorSpeed);
-  }
-
-  public void pointTurnRight()
-  {
-    m_leftMotors.set(DriveConstants.kmotorSpeed);
-    m_rightMotors.set(-DriveConstants.kmotorSpeed);
-  }
-
-  public void inputTurn(double left, double right)
-  {
-    m_leftMotors.set(left);
-    m_rightMotors.set(right);
-  }
   public void stop()
   {
     m_leftMotors.set(0);
     m_rightMotors.set(0);
+  }
+
+  public double getLeftSpeed()
+  {
+    return m_leftMotors.get();
+  }
+
+  public double getRightSpeed()
+  {
+    return m_rightMotors.get();
   }
 
   public void setDrive(double lx, double ly, double ry)
@@ -99,6 +80,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
         break;
     }
   }
+
   
   
   @Override

@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.Limelight;
 
@@ -41,6 +40,8 @@ public class AutoTrackObject extends CommandBase {
     {
         double heading_error = -m_light.getYaw();
         double steering_adjust = 0.0;
+        double left = 0;
+        double right = 0;
         if (m_light.getYaw() > 1.0)
         {
             steering_adjust = Kp*heading_error - min_command;
@@ -49,13 +50,19 @@ public class AutoTrackObject extends CommandBase {
         {
                 steering_adjust = Kp*heading_error + min_command;
         }
-        m_drive.inputTurn(DriveConstants.kmotorSpeed + steering_adjust, DriveConstants.kmotorSpeed - steering_adjust);
+        left -= steering_adjust;
+        right += steering_adjust;
+        
+        m_drive.tankDrive(left, right);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) 
+  {
+
+  }
 
   // Returns true when the command should end.
   @Override
