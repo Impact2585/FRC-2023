@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -14,14 +17,14 @@ import frc.robot.Constants.DriveConstants;
 public class DriveTrainSubsystem extends SubsystemBase {
   private final MotorControllerGroup m_leftMotors =
       new MotorControllerGroup(
-          new Spark(DriveConstants.kLeftMotor1Port),
-          new Spark(DriveConstants.kLeftMotor2Port));
+          new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless),
+          new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless));
 
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors =
       new MotorControllerGroup(
-          new Spark(DriveConstants.kRightMotor1Port),
-          new Spark(DriveConstants.kRightMotor2Port));
+          new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless),
+          new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless));
 
   SendableChooser<String> m_chooser = new SendableChooser<>();
   
