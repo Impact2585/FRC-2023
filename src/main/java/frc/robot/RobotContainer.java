@@ -38,12 +38,9 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    m_driverController.rightBumper().whileTrue(new AutoTrackObject(m_driveTrain, m_light, 0));
-    m_driverController.leftBumper().whileTrue(new AutoTrackObject(m_driveTrain, m_light, 1));
-    m_driverController.a().whileTrue(new AimAssist(m_driveTrain, m_light, 0, () -> m_driverController.getLeftY()));
-    m_driverController.b().whileTrue(new AimAssist(m_driveTrain, m_light, 1, () -> m_driverController.getLeftY()));
-    m_driverController.y().whileTrue(new CheckObject(m_light, 0));
-
+ 
+    m_driverController.a().onTrue(new RunCommand(() -> m_driveTrain.setMaxOutput(0.25), m_driveTrain));
+    m_driverController.a().onFalse(new RunCommand(() -> m_driveTrain.setMaxOutput(0.75), m_driveTrain));
   }
 
   /**
