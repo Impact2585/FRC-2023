@@ -7,10 +7,9 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -26,31 +25,25 @@ public class DriveTrainSubsystem extends SubsystemBase {
           new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless),
           new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless));
 
-  SendableChooser<String> m_chooser = new SendableChooser<>();
+  private SlewRateLimiter filter1;
+  private SlewRateLimiter filter2;
   
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   public DriveTrainSubsystem()
   {
-    m_chooser.setDefaultOption("Tank Drive", "Tank Drive");
-    m_chooser.addOption("Arcade Drive", "Arcade Drive");
-    m_chooser.addOption("Curvature Drive", "Curvature Drive");
+    SlewRateLimiter filter1 = new SlewRateLimiter(3.5);
+    SlewRateLimiter filter2 = new SlewRateLimiter(3);
   }
-  public void tankDrive(double leftSpeed, double rightSpeed)
-  {
-    m_drive.tankDrive(leftSpeed, rightSpeed, true);
-  }
+
 
   public void arcadeDrive(double speed, double rot)
   {
-    m_drive.arcadeDrive(speed, rot, true);
+    m_drive.arcadeDrive(filter1.calculate(speed), filter2.calculate(rot));
   }
 
-  public void curvatureDrive(double speed, double rot)
-  {
-    m_drive.curvatureDrive(speed, rot, false);
-  }
+  
   
   public void stop()
   {
@@ -68,20 +61,11 @@ public class DriveTrainSubsystem extends SubsystemBase {
     return m_rightMotors.get();
   }
 
-  public void setDrive(double lx, double ly, double ry)
+
+
+  public void setMaxOutput(double maxOutput)
   {
-    switch (m_chooser.getSelected())
-    {
-      case "Tank Drive": 
-        tankDrive(ly, ry);
-        break;
-      case "Arcade Drive": 
-        arcadeDrive(ly, lx);
-        break;
-      case "Curvature Drive": 
-        curvatureDrive(ly, lx);
-        break;
-    }
+    m_drive.setMaxOutput(maxOutput);
   }
 
   
@@ -91,8 +75,5 @@ public class DriveTrainSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
+
 }

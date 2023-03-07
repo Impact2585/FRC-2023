@@ -53,7 +53,7 @@ public class AutoTrackObject extends CommandBase {
         left -= steering_adjust;
         right += steering_adjust;
         
-        m_drive.tankDrive(left, right);
+        m_drive.arcadeDrive(left, right);
     }
   }
 

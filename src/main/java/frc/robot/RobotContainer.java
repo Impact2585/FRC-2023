@@ -38,9 +38,7 @@ public class RobotContainer {
 
   private void configureBindings() {
 
- 
-    m_driverController.a().onTrue(new RunCommand(() -> m_driveTrain.setMaxOutput(0.25), m_driveTrain));
-    m_driverController.a().onFalse(new RunCommand(() -> m_driveTrain.setMaxOutput(0.75), m_driveTrain));
+
   }
 
   /**
