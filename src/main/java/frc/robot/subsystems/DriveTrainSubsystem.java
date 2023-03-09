@@ -43,6 +43,10 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_drive.arcadeDrive(filter1.calculate(speed), filter2.calculate(rot));
   }
 
+  public void curvatureDrive(double throttle, double rot, boolean turnInPlace)
+  {
+    m_drive.curvatureDrive(filter1.calculate(throttle), filter2.calculate(rot), turnInPlace);
+  }
   
   
   public void stop()
