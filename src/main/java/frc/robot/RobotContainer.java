@@ -6,9 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AimAssist;
-import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.AutoTrackObject;
 import frc.robot.commands.CheckObject;
+import frc.robot.commands.CurvatureDriveCommand;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,17 +31,17 @@ public class RobotContainer {
     configureBindings();
 
 
-    m_driveTrain.setDefaultCommand(new ArcadeDrive(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
-
+    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
+    //m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
 
     
   }
 
   private void configureBindings() {
+    m_driverController.x().whileTrue(new PIDDrive(m_driveTrain, 0));
+    m_driverController.y().whileTrue(new PIDDrive(m_driveTrain, 1.2));
+    m_driverController.b().whileTrue(new ElevatorButtonCMD(elevator, 0.5));
 
- 
-    m_driverController.a().onTrue(new RunCommand(() -> m_driveTrain.setMaxOutput(0.25), m_driveTrain));
-    m_driverController.a().onFalse(new RunCommand(() -> m_driveTrain.setMaxOutput(0.75), m_driveTrain));
   }
 
   /**

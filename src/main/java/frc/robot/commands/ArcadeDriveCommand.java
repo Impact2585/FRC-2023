@@ -7,11 +7,11 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ArcadeDrive extends CommandBase {
+public class ArcadeDriveCommand extends CommandBase {
   private DriveTrainSubsystem m_drivetrain;
   private DoubleSupplier m_forward, m_rotation;
 
-  public ArcadeDrive(DriveTrainSubsystem drivetrain, DoubleSupplier d, DoubleSupplier e) {
+  public ArcadeDriveCommand(DriveTrainSubsystem drivetrain, DoubleSupplier d, DoubleSupplier e) {
     m_drivetrain = drivetrain;
     m_forward = e;
     m_rotation = d;
