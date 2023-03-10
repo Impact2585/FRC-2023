@@ -5,12 +5,19 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AimAssist;
-import frc.robot.commands.ArcadeDriveCommand;
-import frc.robot.commands.AutoTrackObject;
-import frc.robot.commands.CheckObject;
+import frc.robot.commands.ArmToggleCommand;
+import frc.robot.commands.ClawToggleCommand;
+// import frc.robot.commands.AimAssist;
+// import frc.robot.commands.ArcadeDriveCommand;
+// import frc.robot.commands.AutoTrackObject;
+// import frc.robot.commands.CheckObject;
 import frc.robot.commands.CurvatureDriveCommand;
+import frc.robot.commands.SimpleElevatorMovementCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.IMUGyroSubsystem;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -21,9 +28,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrainSubsystem m_driveTrain = new DriveTrainSubsystem();
   private final Limelight m_light = new Limelight();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  private final IMUGyroSubsystem m_gyro = new IMUGyroSubsystem();
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_driverController2 =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort2);
+  private final ClawSubsystem m_claw = new ClawSubsystem();
+  private final ArmSubsystem m_arm = new ArmSubsystem();
+  private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -31,17 +43,17 @@ public class RobotContainer {
     configureBindings();
 
 
-    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
-    //m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
+   
 
     
   }
 
   private void configureBindings() {
-    m_driverController.x().whileTrue(new PIDDrive(m_driveTrain, 0));
-    m_driverController.y().whileTrue(new PIDDrive(m_driveTrain, 1.2));
-    m_driverController.b().whileTrue(new ElevatorButtonCMD(elevator, 0.5));
-
+    //m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
+    m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
+    m_driverController2.a().onTrue(new ClawToggleCommand(m_claw));
+    m_driverController2.b().onTrue(new ArmToggleCommand(m_arm));
+    m_elevator.setDefaultCommand(new SimpleElevatorMovementCommand(m_elevator, () -> m_driverController2.getLeftY()));
   }
 
   /**

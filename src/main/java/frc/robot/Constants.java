@@ -43,8 +43,8 @@ public final class Constants {
   }
   public static final class ClawConstants 
   {
-    public static final int kdeployForwardChannel = 0;
-    public static final int kdeployBackwardChannel = 1;
+    public static final int kdeployClawChannel = 1;
+    public static final int kdeployArm = 15;
     public static final int kPCMID = 0;
   }
   public static final class ElevatorConstants

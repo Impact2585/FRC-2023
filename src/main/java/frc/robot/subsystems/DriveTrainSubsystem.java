@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj.Encoder;
@@ -19,8 +23,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
       new MotorControllerGroup(
           new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless),
           new CANSparkMax(DriveConstants.kLeftMotor2Port, MotorType.kBrushless));
-          private final Encoder leftEncoder = new Encoder(0,1);
-          private final Encoder rightEncoder = new Encoder(2,3);  
+ 
 
   // The motors on the right side of the drive.
   private final MotorControllerGroup m_rightMotors =
@@ -36,8 +39,8 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public DriveTrainSubsystem()
   {
-    SlewRateLimiter filter1 = new SlewRateLimiter(3.5);
-    SlewRateLimiter filter2 = new SlewRateLimiter(3);
+    SlewRateLimiter filter1 = new SlewRateLimiter(2.5);
+    SlewRateLimiter filter2 = new SlewRateLimiter(0.8);
   }
 
 
@@ -75,16 +78,18 @@ public class DriveTrainSubsystem extends SubsystemBase {
     m_drive.setMaxOutput(maxOutput);
   }
 
-  public double getEncoderMeters()
-  {
-    return (leftEncoder.getDistance() + rightEncoder.getDistance())/2;
-  }
+ 
 
   
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    Shuffleboard.getTab("Drive")
+        .add("Differential DriveBase", m_drive)
+        .withWidget(BuiltInWidgets.kDifferentialDrive)
+        .withProperties(Map.of("min", 0, "max", 1)) // specify widget properties here
+        .getEntry();
   }
 
 
