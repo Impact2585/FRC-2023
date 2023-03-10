@@ -21,17 +21,14 @@ public final class Constants {
   public static class OperatorConstants
   {
     public static final int kDriverControllerPort = 0;
+    public static final int kDriverControllerPort2 = 1;
   }
   public static class DriveConstants
   {
-    public static final int kLeftMotor1Port = 5;
-    public static final int kLeftMotor2Port = 4;
-    public static final int kRightMotor1Port = 1;
-    public static final int kRightMotor2Port = 3;
-    public static final double kP = 0.5;
-    public static final double kI = 0.5;
-    public static final double kD = 0.1;
-    public static final double iLimit = 1;
+    public static final int kLeftMotor1Port = 11;
+    public static final int kLeftMotor2Port = 12;
+    public static final int kRightMotor1Port = 21;
+    public static final int kRightMotor2Port = 22;
 
     public static final double kmotorSpeed = 0.2;
   }
@@ -44,7 +41,7 @@ public final class Constants {
   public static final class ClawConstants 
   {
     public static final int kdeployClawChannel = 1;
-    public static final int kdeployArm = 15;
+    public static final int kdeployArmChannel = 15;
     public static final int kPCMID = 0;
   }
   public static final class ElevatorConstants
