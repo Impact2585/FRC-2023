@@ -13,8 +13,8 @@ public class ArcadeDrive extends CommandBase {
 
   public ArcadeDrive(DriveTrainSubsystem drivetrain, DoubleSupplier d, DoubleSupplier e) {
     m_drivetrain = drivetrain;
-    m_forward = d;
-    m_rotation = e;
+    m_forward = e;
+    m_rotation = d;
 
     addRequirements(m_drivetrain);
   }

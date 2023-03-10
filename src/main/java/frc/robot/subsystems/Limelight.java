@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Limelight extends SubsystemBase{
 
     public NetworkTable m_limelight;
-    private double tv, tx, ty;
+    private double ta, tx, ty;
     private int pipeline; 
 
     public Limelight() {
@@ -20,7 +21,7 @@ public class Limelight extends SubsystemBase{
 
     
     public boolean hasTarget() {
-        return tv == 1.0;
+        return ta >= 2;
     }
 
     /**
@@ -43,6 +44,10 @@ public class Limelight extends SubsystemBase{
         return ty;
     }
 
+    public double getTA() {
+        return ta;
+    }
+
     public void setLedOn() {
         m_limelight.getEntry("ledMode").setValue("1");
     }
@@ -63,9 +68,12 @@ public class Limelight extends SubsystemBase{
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
-        tv = m_limelight.getEntry("tv").getDouble(0);
+        ta = m_limelight.getEntry("ta").getDouble(0);
         tx = m_limelight.getEntry("tx").getDouble(0);
         ty = m_limelight.getEntry("ty").getDouble(0);
         pipeline = m_limelight.getEntry("pipeline").getNumber(0).intValue();
+        SmartDashboard.putNumber("LimelightX", tx);
+        SmartDashboard.putNumber("LimelightY", ty);
+        SmartDashboard.putNumber("LimelightArea", ta);
     }
 }
