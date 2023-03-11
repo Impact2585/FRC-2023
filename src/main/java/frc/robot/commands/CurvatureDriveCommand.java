@@ -18,7 +18,7 @@ public class CurvatureDriveCommand extends CommandBase {
     m_rotation = e;
     m_pointTurn = b;
 
-    addRequirements(m_drivetrain);
+    addRequirements(drivetrain);
   }
 
   @Override

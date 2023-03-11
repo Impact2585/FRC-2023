@@ -13,7 +13,8 @@ public class ClawToggleCommand extends InstantCommand {
   private ClawSubsystem m_claw;
 
   public ClawToggleCommand(ClawSubsystem claw) {
-    addRequirements(m_claw);
+    m_claw = claw;
+    addRequirements(claw);
   }
 
   @Override

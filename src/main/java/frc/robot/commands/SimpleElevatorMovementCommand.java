@@ -15,7 +15,7 @@ public class SimpleElevatorMovementCommand extends CommandBase {
     m_elevator = elevator;
     m_speed = s;
 
-    addRequirements(m_elevator);
+    addRequirements(elevator);
   }
 
   @Override

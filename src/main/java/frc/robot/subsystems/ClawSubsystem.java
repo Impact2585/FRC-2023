@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClawConstants;
 
@@ -23,9 +21,6 @@ public class ClawSubsystem extends SubsystemBase{
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
-    Shuffleboard.getTab("Pneumatics")
-        .add("Claw", m_clawSolenoid.get())
-        .withWidget(BuiltInWidgets.kBooleanBox);
           
     }
     

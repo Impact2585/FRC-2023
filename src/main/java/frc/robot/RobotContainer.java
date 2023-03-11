@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArcadeDriveCommand;
 import frc.robot.commands.ArmToggleCommand;
 import frc.robot.commands.ClawToggleCommand;
 // import frc.robot.commands.AimAssist;
@@ -13,6 +14,7 @@ import frc.robot.commands.ClawToggleCommand;
 // import frc.robot.commands.CheckObject;
 import frc.robot.commands.CurvatureDriveCommand;
 import frc.robot.commands.SimpleElevatorMovementCommand;
+import frc.robot.commands.autonomous.SimpleDriveDistance;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -49,8 +51,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    //m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
-    m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
+    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getRightX(), () -> m_driverController.getLeftY()));
+    //m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
     m_driverController2.a().onTrue(new ClawToggleCommand(m_claw));
     m_driverController2.b().onTrue(new ArmToggleCommand(m_arm));
     m_elevator.setDefaultCommand(new SimpleElevatorMovementCommand(m_elevator, () -> m_driverController2.getLeftY()));
@@ -64,6 +66,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    return new InstantCommand();
+    return new SimpleDriveDistance(m_driveTrain, 48);
   }
 }

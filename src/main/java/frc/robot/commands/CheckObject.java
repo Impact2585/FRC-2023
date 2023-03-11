@@ -35,9 +35,6 @@ public class CheckObject extends CommandBase {
     {
         System.out.println("test");
     }
-    else{
-      System.out.println(m_light.getTA());
-    }
   }
 
   // Called once the command ends or is interrupted.

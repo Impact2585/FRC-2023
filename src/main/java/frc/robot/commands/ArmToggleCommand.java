@@ -10,7 +10,8 @@ public class ArmToggleCommand extends InstantCommand {
   private ArmSubsystem m_arm;
 
   public ArmToggleCommand(ArmSubsystem arm) {
-    addRequirements(m_arm);
+    m_arm = arm;
+    addRequirements(arm);
   }
 
   @Override
