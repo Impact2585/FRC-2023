@@ -18,6 +18,7 @@ import frc.robot.Constants.DriveConstants;
 public class DriveTrainSubsystem extends SubsystemBase {
   private CANSparkMax leftController = new CANSparkMax(DriveConstants.kLeftMotor1Port, MotorType.kBrushless);
   private CANSparkMax rightController = new CANSparkMax(DriveConstants.kRightMotor1Port, MotorType.kBrushless);
+  private SlewRateLimiter filter = new SlewRateLimiter(2.5);
   private final MotorControllerGroup m_leftMotors =
       new MotorControllerGroup(
           leftController,
@@ -46,7 +47,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
 
   public void arcadeDrive(double speed, double rot)
   {
-    m_drive.arcadeDrive(speed * 0.75, rot * 0.75);
+    m_drive.arcadeDrive(filter.calculate(speed), rot * 0.75);
   }
 
   public void curvatureDrive(double throttle, double rot, boolean turnInPlace)
