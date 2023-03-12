@@ -31,6 +31,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
           rightController,
           new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless));
 
+          
   private RelativeEncoder rightEncoder;
   private RelativeEncoder leftEncoder;
 
@@ -42,13 +43,15 @@ public class DriveTrainSubsystem extends SubsystemBase {
   {
     rightEncoder = rightController.getEncoder();
     leftEncoder = leftController.getEncoder();
+    m_rightMotors.setInverted(true);
   }
 
 
   public void arcadeDrive(double speed, double rot)
   {
-    m_drive.arcadeDrive(filter.calculate(speed), rot * 0.75);
+    m_drive.arcadeDrive(-filter.calculate(speed), -rot * 0.75);
   }
+
 
   public void curvatureDrive(double throttle, double rot, boolean turnInPlace)
   {

@@ -39,8 +39,8 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort2);
   private final ClawSubsystem m_claw = new ClawSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  //private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
-  private final ElevatorPIDSubsystem m_elevator = new ElevatorPIDSubsystem();
+  private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
+  //private final ElevatorPIDSubsystem m_elevator = new ElevatorPIDSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,15 +54,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getRightX(), () -> m_driverController.getLeftY()));
+    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, 
+    () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
     //m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
     m_driverController2.a().onTrue(new ClawToggleCommand(m_claw));
     m_driverController2.b().onTrue(new ArmToggleCommand(m_arm));
-    m_elevator.setDefaultCommand(Commands.run(
-      () ->
-          m_elevator.setGoal(
-              -m_driverController.getLeftY() * 100),
-      m_elevator));
+    m_elevator.setDefaultCommand(new SimpleElevatorMovementCommand(m_elevator,() -> m_driverController2.getLeftY()));
     m_driverController
         .rightBumper()
         .onTrue(Commands.runOnce(() -> m_driveTrain.setMaxOutput(0.3)))
@@ -79,6 +76,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    return new SimpleDriveDistance(m_driveTrain, 48);
-  }
+    //return new SimpleDriveDistance(m_driveTrain, -4);
+    return null;
+}
 }
