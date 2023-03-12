@@ -14,7 +14,7 @@ import frc.robot.commands.ClawToggleCommand;
 // import frc.robot.commands.CheckObject;
 import frc.robot.commands.CurvatureDriveCommand;
 import frc.robot.commands.SimpleElevatorMovementCommand;
-import frc.robot.commands.autonomous.SimpleDriveDistance;
+import frc.robot.commands.autonomous.ScoreandMobility;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveTrainSubsystem;
@@ -39,8 +39,9 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort2);
   private final ClawSubsystem m_claw = new ClawSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
+  //private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
   private final ElevatorSubsystem m_elevator = new ElevatorSubsystem();
-  //private final ElevatorPIDSubsystem m_elevator = new ElevatorPIDSubsystem();
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,12 +55,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, 
-    () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
+    m_driveTrain.setDefaultCommand(new ArcadeDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX()));
     //m_driveTrain.setDefaultCommand(new CurvatureDriveCommand(m_driveTrain, () -> m_driverController.getLeftY(), () -> m_driverController.getRightX(), m_driverController.x()));
     m_driverController2.a().onTrue(new ClawToggleCommand(m_claw));
     m_driverController2.b().onTrue(new ArmToggleCommand(m_arm));
-    m_elevator.setDefaultCommand(new SimpleElevatorMovementCommand(m_elevator,() -> m_driverController2.getLeftY()));
+    m_elevator.setDefaultCommand(new SimpleElevatorMovementCommand(m_elevator, () -> m_driverController.getLeftY()));
     m_driverController
         .rightBumper()
         .onTrue(Commands.runOnce(() -> m_driveTrain.setMaxOutput(0.3)))
@@ -76,7 +76,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    //return new SimpleDriveDistance(m_driveTrain, -4);
-    return null;
-}
+    return new ScoreandMobility(m_driveTrain);
+    //return null;
+  }
 }
