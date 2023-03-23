@@ -32,6 +32,10 @@ public class IMUGyroSubsystem extends SubsystemBase{
         return imu.getAngle(imu.getRollAxis());
     }
 
+    public void reset()
+    {
+        imu.resetAllAngles();
+    }
 
     @Override
     public void periodic() {

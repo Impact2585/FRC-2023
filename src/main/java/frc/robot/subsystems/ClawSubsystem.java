@@ -5,8 +5,10 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClawConstants;
 
+
 public class ClawSubsystem extends SubsystemBase{
     private Solenoid m_clawSolenoid = new Solenoid(ClawConstants.kPCMID,PneumaticsModuleType.REVPH, ClawConstants.kdeployClawChannel);
+    
 
     public ClawSubsystem()
     {

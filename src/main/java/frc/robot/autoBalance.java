@@ -58,7 +58,7 @@ public class autoBalance {
         // Amount of time to drive forward to secure the scoring of the gamepiece
         doubleTapTime = 0.3;
 
-        double mobilityTime = 2;
+        mobilityTime = 2;
     }
 
     public double getPitch() {
